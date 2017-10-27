@@ -12,7 +12,7 @@ public class App extends Application
 {
 	
 	// ---------- Constants ----------
-	private final int WIDTH = 800;
+	private final int WIDTH = 1200;
 	private final int HEIGHT = 800;
 	// ---------- --------- ----------
 	// ---------- Variables ----------
