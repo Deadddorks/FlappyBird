@@ -1,7 +1,7 @@
 package flappy_bird.logic;
 
 // ---------- Imports ----------
-
+import java.util.ArrayList;
 // ---------- ------- ----------
 
 public class World
@@ -13,17 +13,17 @@ public class World
 	// ---------- --------- ----------
 	// ---------- Variables ----------
 	private final double screenWidth;
-	private final double screenHieght;
+	private final double screenHeight;
 	private final double pipeWidth;
 	private ArrayList<Integer> pipes = new ArrayList<>();
 
 
 	// ---------- --------- ----------
 	
-	public World(final double screenWidth, final double screenHieght, final double pipeWidth)
+	public World(final double screenWidth, final double screenHeight, final double pipeWidth)
 	{
 		this.screenWidth = screenWidth;
-		this.screenHieght = screenHieght;
+		this.screenHeight = screenHeight;
 		this.pipeWidth = pipeWidth;
 	}
 
