@@ -20,7 +20,7 @@ public class World
 
 	// ---------- --------- ----------
 	
-	public World(final double screenWidth, final double screenHeight, final double pipeWidth)
+	public World(final double screenWidth, final double screenHeight, final double pipeWidth, final double pipeSeperation) // Need to add this variable
 	{
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
@@ -30,6 +30,30 @@ public class World
 	public void generatePipes()
 	{
 
+	}
+	
+	public void jump()
+	{
+	
+	}
+	
+	public ArrayList<Integer> getPipes()
+	{
+		return pipes;
+	}
+	
+	public double getPlayerHeight()
+	{
+		return 0;
+	}
+	public boolean goingDown()
+	{
+		return false;
+	}
+	
+	public void restart()
+	{
+	
 	}
 
 }
