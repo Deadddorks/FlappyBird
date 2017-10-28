@@ -1,8 +1,10 @@
 package flappy_bird.graphics;
 
+// ---------- Imports ----------
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+// ---------- ------- ----------
 
 public class Graphics
 {

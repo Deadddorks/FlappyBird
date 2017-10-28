@@ -1,13 +1,13 @@
 package flappy_bird.graphics;
 
-// Imports
+// ---------- Imports ----------
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-// -----
+// ---------- ------- ----------
 
 public class App extends Application
 {
