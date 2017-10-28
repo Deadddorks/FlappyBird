@@ -46,12 +46,17 @@ public class World
 	{
 		return 0;
 	}
-	public boolean goingDown()
+	public boolean isGoingDown()
 	{
 		return false;
 	}
 	
 	public void restart()
+	{
+	
+	}
+	
+	public void gameTick()
 	{
 	
 	}

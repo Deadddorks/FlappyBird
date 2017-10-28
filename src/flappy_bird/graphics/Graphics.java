@@ -46,7 +46,8 @@ public class Graphics
 	
 	public void gameTick()
 	{
-		System.out.println("Game Tick");
+		world.gameTick();
+		draw();
 	}
 	
 	public void newGame()
