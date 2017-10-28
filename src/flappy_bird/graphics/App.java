@@ -13,12 +13,14 @@ public class App extends Application
 {
 	
 	// ---------- Constants ----------
-	private final int WIDTH = 1200;
-	private final int HEIGHT = 800;
+	private final int WIDTH = 1500;
+	private final int HEIGHT = 840;
 	// ---------- --------- ----------
 	// ---------- Variables ----------
 	private Scene scene;
 	private Canvas canvas;
+	
+	private Graphics graphics;
 	// ---------- --------- ----------
 	
 	@Override
@@ -28,6 +30,9 @@ public class App extends Application
 		canvas = new Canvas(WIDTH, HEIGHT);
 		VBox box = new VBox();
 		box.getChildren().add(canvas);
+		
+		graphics = new Graphics(canvas);
+		graphics.draw();
 		
 		scene = new Scene(box);
 		window.setScene(scene);
