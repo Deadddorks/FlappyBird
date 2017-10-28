@@ -4,6 +4,7 @@ package flappy_bird.graphics;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 // -----
@@ -31,6 +32,7 @@ public class App extends Application
 		scene = new Scene(box);
 		window.setScene(scene);
 		window.setTitle("Flappy Bird");
+		window.getIcons().add(new Image("resources/bird_up.png"));
 		window.setResizable(false);
 		window.sizeToScene();
 		window.show();
