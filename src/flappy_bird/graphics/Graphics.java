@@ -1,20 +1,20 @@
 package flappy_bird.graphics;
 
 // ---------- Imports ----------
+import flappy_bird.logic.GameStats;
 import flappy_bird.logic.World;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 // ---------- ------- ----------
 
 public class Graphics
 {
 	
 	// ---------- Constants ----------
-	private final double PIPE_WIDTH = 25;
-	private final double PIPE_SEPARATION = 150;
-	private final int fps = 20;
+	
 	// ---------- --------- ----------
 	// ---------- Variables ----------
 	private Canvas canvas;
@@ -30,7 +30,7 @@ public class Graphics
 		this.graphicsContext = canvas.getGraphicsContext2D();
 		
 		gameRunning = false;
-		world = new World(canvas.getWidth(), canvas.getHeight(), PIPE_WIDTH, PIPE_SEPARATION);
+		world = new World(canvas.getWidth(), canvas.getHeight());
 	}
 	
 	public void draw()
@@ -39,8 +39,15 @@ public class Graphics
 		
 		graphicsContext.drawImage(background, 0, 0, canvas.getWidth(), canvas.getHeight());
 		
-		drawPipesAtLoc(100, 400);
+		double offset = world.getXOffset();
+		ArrayList<Double> pipeHeights = world.getPipes();
+		for (int i = 0; i < pipeHeights.size(); i++)
+		{
+			drawPipesAtLoc(offset + i * GameStats.PIPE_INTERVAL, pipeHeights.get(i));
+		}
 		
+		graphicsContext.drawImage(new Image("resources/bird_" + (world.isGoingDown() ? "down" : "up") + ".png"),
+				GameStats.PLAYER_OFFSET, world.getPlayerHeight(), GameStats.PLAYER_WIDTH, GameStats.PLAYER_HEIGHT);
 	}
 	
 	public World getWorld()
@@ -52,12 +59,14 @@ public class Graphics
 	{
 		world.gameTick();
 		draw();
+		
+		gameRunning = !world.isPlayerDead();
 	}
 	
 	public void drawPipesAtLoc(final double xOffset, final double yOffset)
 	{
-		graphicsContext.drawImage(new Image("resources/pipe_up.png"), xOffset, yOffset);
-		graphicsContext.drawImage(new Image("resources/pipe_down.png"), xOffset, yOffset - PIPE_SEPARATION - canvas.getHeight());
+		graphicsContext.drawImage(new Image("resources/pipe_up.png"), xOffset, yOffset + GameStats.PIPE_SEPARATION, GameStats.PIPE_WIDTH, canvas.getHeight());
+		graphicsContext.drawImage(new Image("resources/pipe_down.png"), xOffset, yOffset - canvas.getHeight(), GameStats.PIPE_WIDTH, canvas.getHeight());
 	}
 	
 	public void newGame()
@@ -78,7 +87,7 @@ public class Graphics
 	
 	public int getFpsDelay()
 	{
-		return 1000 / fps;
+		return 1000 / GameStats.FPS;
 	}
 	
 }
