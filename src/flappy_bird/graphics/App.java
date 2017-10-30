@@ -1,14 +1,18 @@
 package flappy_bird.graphics;
 
 // ---------- Imports ----------
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 // ---------- ------- ----------
 
 public class App extends Application
@@ -23,6 +27,7 @@ public class App extends Application
 	private Canvas canvas;
 	
 	private Graphics graphics;
+	private Timeline timeline;
 	// ---------- --------- ----------
 	
 	@Override
@@ -36,6 +41,22 @@ public class App extends Application
 		graphics = new Graphics(canvas);
 		graphics.draw();
 		
+		timeline = new Timeline();
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		KeyFrame frame = new KeyFrame(new Duration(graphics.getFpsDelay()), new EventHandler<ActionEvent>()
+		{
+			@Override
+			public void handle(ActionEvent event)
+			{
+				graphics.gameTick();
+				if (!graphics.isGameRunning())
+				{
+					timeline.stop();
+				}
+			}
+		});
+		timeline.getKeyFrames().add(frame);
+		
 		scene = new Scene(box);
 		scene.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.SPACE)
@@ -43,7 +64,8 @@ public class App extends Application
 				if (!graphics.isGameRunning())
 				{
 					graphics.newGame();
-					startGame();
+					
+					timeline.playFromStart();
 				}
 				else
 				{
@@ -58,34 +80,10 @@ public class App extends Application
 		window.setResizable(false);
 		window.sizeToScene();
 		window.show();
-		window.setOnCloseRequest(e -> graphics.end());
-		
-		startGame();
-		
-	}
-	
-	public void startGame()
-	{
-		Thread gameThread = new Thread(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				while (graphics.isGameRunning())
-				{
-					Platform.runLater(() -> graphics.gameTick());
-					try
-					{
-						Thread.sleep(graphics.getFpsDelay());
-					}
-					catch (InterruptedException e)
-					{
-						System.out.println("Could not sleep...");
-					}
-				}
-			}
+		window.setOnCloseRequest(e -> {
+			graphics.end();
 		});
-		gameThread.start();
+		
 	}
 	
 	public static void main(String[] args)
